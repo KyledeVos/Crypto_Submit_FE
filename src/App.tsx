@@ -1,6 +1,10 @@
 import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { getRequestAxios } from "../src/services/api_service";
 import { useEffect } from "react";
+
+//page imports
+import HomePage from "./pages/HomePage";
 
 function App() {
   useEffect(() => {
@@ -11,9 +15,11 @@ function App() {
   }, []);
 
   return (
-    <>
-      <h1>Home Page</h1>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+      </Routes>
+    </Router>
   );
 }
 
