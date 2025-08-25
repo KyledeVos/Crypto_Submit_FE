@@ -1,5 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getHomePageData } from "../models/crypto_model";
+import type {
+  CryptoSummaryType,
+  CryptoSummaryModelResponseType,
+} from "../types/model_types";
 const HomePage: React.FC = () => {
+  // data tracking
+  const [summaryData, setSummaryData] = useState<CryptoSummaryType | undefined>(
+    undefined
+  );
+  const [errorToastMessage, setErrorToastMessage] = useState<
+    string | undefined
+  >(undefined);
+
+  // Data Retrieval on mount
+  useEffect(() => {
+    const summaryData = async () => {
+      const data: CryptoSummaryModelResponseType = await getHomePageData();
+      if (!data || data === undefined) {
+        setErrorToastMessage(
+          "Data could not be retrieved at this time. Please try again"
+        );
+      }
+    };
+    summaryData();
+  }, []);
+
   return (
     <>
       <div className="container-fluid">

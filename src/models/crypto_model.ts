@@ -21,6 +21,7 @@ export const getHomePageData = async ():Promise<CryptoSummaryModelResponseType> 
             return {message: "Could not retrieve data at this time. Please try again or contact support", data: undefined}
         }
     }
+        developerLog(`Axios Response: ${dataResponse.data}`)
         //success of 200
         return {message: "success", data: undefined}
     
