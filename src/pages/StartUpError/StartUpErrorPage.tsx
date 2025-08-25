@@ -1,9 +1,11 @@
 import React from "react";
 
-export const StartUpErrorPage: React.FC = () => {
+const StartUpErrorPage: React.FC = () => {
   return (
     <>
-      <h1>Error has occured during startup</h1>
+      <h1>Something Went Wrong</h1>
     </>
   );
 };
+
+export default StartUpErrorPage;
