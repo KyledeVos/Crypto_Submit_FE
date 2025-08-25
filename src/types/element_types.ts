@@ -4,3 +4,8 @@ export type customToastType = {
     showToast: boolean;
     onClose: () => void
 }
+
+export type dataDisplayTableType = {
+    headings: string[];
+    data: object[];
+}

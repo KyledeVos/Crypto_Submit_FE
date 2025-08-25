@@ -18,17 +18,6 @@ if (startChecks.length > 0) {
 }
 
 function App() {
-  useEffect(() => {
-    const getTestResponse = async () => {
-      return await RequestAxios({
-        route: "/hello",
-        method: "GET",
-        data: { name: "test" },
-      });
-    };
-    getTestResponse();
-  }, []);
-
   return (
     <Router>
       <Routes>
