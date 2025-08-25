@@ -4,6 +4,8 @@ import type {
   CryptoSummaryType,
   CryptoSummaryModelResponseType,
 } from "../types/model_types";
+import { CustomToastAlert } from "../components/elements/toast_custom";
+
 const HomePage: React.FC = () => {
   // data tracking
   const [summaryData, setSummaryData] = useState<CryptoSummaryType | undefined>(
@@ -12,6 +14,7 @@ const HomePage: React.FC = () => {
   const [errorToastMessage, setErrorToastMessage] = useState<
     string | undefined
   >(undefined);
+  const [showToast, setShowToast] = useState<boolean>(false);
 
   // Data Retrieval on mount
   useEffect(() => {
@@ -21,6 +24,7 @@ const HomePage: React.FC = () => {
         setErrorToastMessage(
           "Data could not be retrieved at this time. Please try again"
         );
+        setShowToast(true);
       }
     };
     summaryData();
@@ -46,6 +50,14 @@ const HomePage: React.FC = () => {
           <div className="col-6">Hello</div>
         </div>
       </div>
+      <CustomToastAlert
+        toastType={"alert"}
+        message={errorToastMessage !== undefined ? errorToastMessage : ""}
+        showToast={showToast}
+        onClose={() => {
+          setShowToast(false);
+        }}
+      />
     </>
   );
 };
