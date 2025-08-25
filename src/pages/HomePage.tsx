@@ -47,6 +47,10 @@ const HomePage: React.FC = () => {
     dataFetch();
   }, []);
 
+  const selectRow = (symbol: string) => {
+    console.log("SELECTED SYMBOL", symbol);
+  };
+
   return (
     <>
       <div className="container-fluid">
@@ -71,6 +75,7 @@ const HomePage: React.FC = () => {
             <DataDisplayTable
               headings={summaryDataColumns}
               data={summaryData}
+              onRowSelect={selectRow}
             />
           ) : (
             <div className="d-flex justify-content-center mt-5">

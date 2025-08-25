@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import type { dataDisplayTableType } from "../../types/element_types";
+import type { CryptoSummaryTableType } from "../../types/model_types";
 
-const DataDisplayTable = ({ headings, data }: dataDisplayTableType) => {
+const DataDisplayTable = ({
+  headings,
+  data,
+  onRowSelect,
+}: dataDisplayTableType) => {
   const [dataEmpty, setDataEmpty] = useState<boolean>(false);
 
   useEffect(() => {
@@ -28,7 +33,11 @@ const DataDisplayTable = ({ headings, data }: dataDisplayTableType) => {
         <tbody className="table-dark">
           {data.map((currentData) => {
             return (
-              <tr>
+              <tr
+                onClick={() => {
+                  onRowSelect((currentData as CryptoSummaryTableType).symbol);
+                }}
+              >
                 {Object.values(currentData).map((field) => {
                   return <td>{field}</td>;
                 })}

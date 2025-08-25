@@ -13,3 +13,11 @@ export type CryptoSummaryType = {
     currencyRank: number;
     currencyIsActive: boolean;
 }
+
+export type CryptoSummaryTableType = {
+    name: string;
+    id: number;
+    symbol: string;
+    rank: number;
+    is_active: boolean;
+}
