@@ -6,6 +6,7 @@ import { criticalStartUpChecks } from "./utilities/start_up_checks";
 
 //page imports
 import HomePage from "./pages/HomePage";
+import LatestData from "./pages/LatestData";
 import StartUpErrorPage from "./pages/StartUpError/StartUpErrorPage";
 
 console.log("Performing Start Checks");
@@ -23,6 +24,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/something_went_wrong" element={<StartUpErrorPage />} />
+        <Route path="/latestData/:symbol" element={<LatestData />} />
       </Routes>
     </Router>
   );

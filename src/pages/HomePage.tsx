@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { getHomePageData } from "../models/crypto_model";
 import type {
   CryptoSummaryType,
@@ -6,6 +6,7 @@ import type {
 } from "../types/model_types";
 import { CustomToastAlert } from "../components/elements/toast_custom";
 import DataDisplayTable from "../components/elements/dataDisplayTable";
+import { useNavigate } from "react-router-dom";
 
 const HomePage: React.FC = () => {
   // define Data Summary Column Names
@@ -17,12 +18,15 @@ const HomePage: React.FC = () => {
     "Is Currently Active",
   ];
 
+  const nav = useNavigate();
+
   // data tracking
   const [summaryData, setSummaryData] = useState<any | undefined>(undefined);
   const [errorToastMessage, setErrorToastMessage] = useState<
     string | undefined
   >(undefined);
   const [showToast, setShowToast] = useState<boolean>(false);
+  const selectedRow = useRef<string>("");
 
   // Data Retrieval on mount
   useEffect(() => {
@@ -49,6 +53,8 @@ const HomePage: React.FC = () => {
 
   const selectRow = (symbol: string) => {
     console.log("SELECTED SYMBOL", symbol);
+    selectedRow.current = symbol;
+    nav(`/latestData/${selectedRow.current}`);
   };
 
   return (
@@ -68,7 +74,6 @@ const HomePage: React.FC = () => {
             </svg>
             <h1 className="fs-4 heading_font">Gold Coin</h1>
           </div>
-          <div className="col-6">Hello</div>
         </div>
         <div>
           {summaryData ? (

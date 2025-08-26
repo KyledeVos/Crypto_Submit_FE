@@ -29,7 +29,7 @@ export const RequestAxios = async({route, data, method}: AxiosRequestType): Prom
     }
     
     try{
-        const response = await axios(server_route, {method: method, params: data, timeout: axiosTimeout})
+        const response = await axios(server_route, {method: method, data: data, timeout: axiosTimeout})
         if(import.meta.env.VITE_MODE === "DEVELOPER"){
             console.log(`RESPONSE STATUS FOR REQUEST ROUTE: ${route}`, response)
             console.log("DATA", response.data)

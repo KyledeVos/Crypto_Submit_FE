@@ -8,5 +8,5 @@ export type customToastType = {
 export type dataDisplayTableType = {
     headings: string[];
     data: object[];
-     onRowSelect : (symbol: string) => void
+    onRowSelect : (symbol: string) => void
 }
