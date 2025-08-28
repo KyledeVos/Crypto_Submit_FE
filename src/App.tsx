@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { RequestAxios } from "../src/services/api_service";
 import { useEffect } from "react";
 import { criticalStartUpChecks } from "./utilities/start_up_checks";
+import PageHeader from "./structure/header";
 
 //page imports
 import HomePage from "./pages/HomePage";
@@ -21,8 +22,12 @@ if (startChecks.length > 0) {
 function App() {
   return (
     <Router>
+      <PageHeader>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+        </Routes>
+      </PageHeader>
       <Routes>
-        <Route path="/" element={<HomePage />} />
         <Route path="/something_went_wrong" element={<StartUpErrorPage />} />
         <Route path="/latestData/:symbol" element={<LatestData />} />
       </Routes>
