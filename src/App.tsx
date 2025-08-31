@@ -25,11 +25,11 @@ function App() {
       <PageHeader>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/latestData/:symbol" element={<LatestData />} />
         </Routes>
       </PageHeader>
       <Routes>
         <Route path="/something_went_wrong" element={<StartUpErrorPage />} />
-        <Route path="/latestData/:symbol" element={<LatestData />} />
       </Routes>
     </Router>
   );
