@@ -4,13 +4,10 @@
  */
 import React from "react";
 import "./header.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Outlet} from "react-router-dom";
 
-type PageHeaderProps = {
-  children: React.ReactNode;
-};
 
-const PageHeader: React.FC<PageHeaderProps> = ({ children }) => {
+const PageHeader: React.FC = () => {
   const nav = useNavigate();
   
   return (
@@ -20,7 +17,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ children }) => {
           <h1 role="button" onClick = {() => {nav("/")}} className="heading_font">Gold Coin</h1>
 
       </div>
-      {children}
+      <Outlet />
     </div>
   );
 };

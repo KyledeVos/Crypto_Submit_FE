@@ -9,6 +9,7 @@ import PageHeader from "./structure/header";
 import HomePage from "./pages/HomePage";
 import LatestData from "./pages/LatestData";
 import StartUpErrorPage from "./pages/StartUpError/StartUpErrorPage";
+import SignUpPage from "./pages/SignUpPage";
 
 console.log("Performing Start Checks");
 const startChecks = criticalStartUpChecks();
@@ -22,14 +23,15 @@ if (startChecks.length > 0) {
 function App() {
   return (
     <Router>
-      <PageHeader>
         <Routes>
+          <Route element={<PageHeader/>} >
           <Route path="/" element={<HomePage />} />
           <Route path="/latestData/:symbol" element={<LatestData />} />
+          </Route>
         </Routes>
-      </PageHeader>
       <Routes>
         <Route path="/something_went_wrong" element={<StartUpErrorPage />} />
+        <Route path="/sign_up" element={<SignUpPage />} />
       </Routes>
     </Router>
   );
