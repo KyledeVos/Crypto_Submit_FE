@@ -21,27 +21,33 @@ const HomePage: React.FC = () => {
   const nav = useNavigate();
 
   // data tracking
-  const [summaryData, setSummaryData] = useState<any | undefined>(undefined);
+  const [summaryData, setSummaryData] = useState<
+    CryptoSummaryType[] | undefined
+  >(undefined);
   const [errorToastMessage, setErrorToastMessage] = useState<
     string | undefined
   >(undefined);
   const [showToast, setShowToast] = useState<boolean>(false);
   const selectedRow = useRef<string>("");
+  const [loadingData, setLoadingData] = useState<boolean>(false);
 
   // Data Retrieval on mount
   useEffect(() => {
     const dataFetch = async () => {
-      console.log("Called axios");
+      setLoadingData(true);
       const data: CryptoSummaryModelResponseType = await getHomePageData();
-      console.log("DATA IN", data);
+      setLoadingData(false);
       if (
         !data ||
         data === undefined ||
         data.message !== "success" ||
         data.data === undefined
       ) {
+        setSummaryData([]);
         setErrorToastMessage(
-          "Data could not be retrieved at this time. Please try again"
+          data.message.trim() !== ""
+            ? data.message
+            : "Data could not be retrieved at this time. Please try again"
         );
         setShowToast(true);
       } else {
@@ -60,14 +66,19 @@ const HomePage: React.FC = () => {
   return (
     <>
       <div className="container-fluid">
-        <div>
-          {summaryData ? (
-            <DataDisplayTable
-              headings={summaryDataColumns}
-              data={summaryData}
-              onRowSelect={selectRow}
-            />
-          ) : (
+        <div className="h-vh border border-danger">
+          {summaryData !== undefined && (
+            <div className="h-25 mh-25 border">
+              <DataDisplayTable
+                tableHeading="Currencies"
+                headings={summaryDataColumns}
+                data={summaryData}
+                onRowSelect={selectRow}
+                clickableRow={true}
+              />
+            </div>
+          )}
+          {loadingData && (
             <div className="d-flex justify-content-center mt-5">
               <div className="spinner-border border-0" role="status">
                 <img
@@ -75,7 +86,6 @@ const HomePage: React.FC = () => {
                   className="mh-100 h-100 mt-1"
                 />
               </div>
-              {/* <h3 className="ms-3">Loading Data</h3> */}
             </div>
           )}
         </div>
