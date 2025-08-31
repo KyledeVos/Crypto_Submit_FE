@@ -46,23 +46,32 @@ export const getLatestDataSingle = async (symbol: string) => {
     const route = "/latestData"
     const method = "POST"
 
-    const dataResponse = await RequestAxios({ route: route, method: method, data: { symbol: symbol } });
-    console.log("data resp", dataResponse)
-    // if(!dataResponse || dataResponse === undefined){
-    //     developerLog("getHomePageData request to Axios did not return any data")
-    //     return {message: "Could not retrieve data", data: undefined}
-    // }else if(dataResponse.status !== 200){
-    //     if(dataResponse.status === 500 || dataResponse.status >= 400 && dataResponse.status <500){
-    //         return {message: "Could not retrieve data at this time", data: undefined}
-    //     }else if(dataResponse.status === 204){
-    //         return {message: "Data not available at this time. Please try again or contact support", data: undefined}
-    //     }
-    // }else if(!dataResponse.data || dataResponse.data === undefined){
-    //     developerLog("getHomePageData did not get any data from server");
-    //     return {message: "Could not retrieve data at this time. Please try again or contact support", data: undefined}
-    // }
-    //     developerLog(`Axios Response: ${typeof dataResponse.data}`)
-    //     //success of 200
-    //     return {message: "success", data: dataResponse.data}
+    try {
 
+        const dataResponse = await RequestAxios({ route: route, method: method, data: { symbol: symbol } });
+        console.log("data resp", dataResponse)
+        if (!dataResponse || dataResponse === undefined) {
+            developerLog("latestData request to Axios did not return any data")
+            return { message: "Could not retrieve data", data: undefined }
+        }
+        return { message: "success", data: dataResponse.data }
+    } catch (error) {
+        console.log("in the error")
+        if (error instanceof AxiosError) {
+            console.log("estatus", error.status)
+            if (error.status === 400) {
+                developerLog(`latestData request returned ${error.status}`)
+                return { message: "Data not available at this time. Please try again or contact support", data: undefined }
+            } else if (error.status === 500) {
+                developerLog(`latestData request returned 500`)
+                return { message: "Could not retrieve data at this time", data: undefined }
+            } else {
+                developerLog(`latestData request returned uexpected status code as ${error.status}`)
+                return { message: "Could not retrieve data at this time", data: undefined }
+            }
+        } else {
+            developerLog(`Error occured during axios fetch for latestData as ${error}`)
+            return { message: "Could not retrieve data at this time", data: undefined }
+        }
+    }
 }

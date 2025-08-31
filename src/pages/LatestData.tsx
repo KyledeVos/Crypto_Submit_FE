@@ -13,12 +13,17 @@ const LatestData: React.FC = () => {
     const fetchData = async () => {
       if (symbol !== undefined) {
         const dataResult = await getLatestDataSingle(symbol);
+        console.log("DATARESULT", dataResult);
       }
     };
     fetchData();
   }, []);
 
-  return <>Latest</>;
+  return (
+    <>
+      <div>Latest</div>Latest
+    </>
+  );
 };
 
 export default LatestData;
