@@ -31,9 +31,9 @@ const DataDisplayTable = ({
           <h2 className="heading_font">{tableHeading}</h2>
         </div>
       )}
-      <table
-        className={`table table-bordered ${clickableRow ? "table-hover" : ""} bg-dark mt-1`}
-      >
+      <div className="table-responsive h-25 mh-25 col-12 col-xl-10 mx-auto justify-content-center">
+        <table className={`table table-bordered ${clickableRow ? "table-hover" : ""} bg-dark mt-1 `}
+        >
         <thead className="table-dark">
           <tr>
             {headings.map((heading) => {
@@ -63,6 +63,8 @@ const DataDisplayTable = ({
           )}
         </tbody>
       </table>
+      </div>
+
     </>
   );
 };

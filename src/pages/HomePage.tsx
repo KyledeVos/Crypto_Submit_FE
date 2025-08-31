@@ -121,9 +121,9 @@ const HomePage: React.FC = () => {
   return (
     <>
       <div className="container-fluid bg-dark">
-        <div className="">
+        <div className="justify-content-center">
           {summaryData !== undefined && summaryData.length > 0 && (
-            <div className="h-25 mh-25">
+            <div className="h-25 mh-25 justify-content-center">
               <DataDisplayTable
                 tableHeading="Currencies"
                 headings={summaryDataColumns}
@@ -139,8 +139,9 @@ const HomePage: React.FC = () => {
           <div><h2>No Data</h2></div>
           </>
           }
-          {fullData !== undefined && fullData.length !== 0 && !mobileView &&(
+          {fullData !== undefined && fullData.length !== 0 && !mobileView &&
             <>
+            <div className="row w-full justify-content-center">
               <h2 className="heading_font">Currencies Data</h2>
               <div className="table-responsive h-25 mh-25 col-12 col-xl-10">
                 {<table className="table table-bordered">
@@ -168,8 +169,10 @@ const HomePage: React.FC = () => {
                   </tbody>
                 </table>}
               </div>
+            </div>
+
             </>
-          )}
+          }
           {fullData !== undefined && fullData.length !== 0 && mobileView &&(
             <>
               <h2 className="heading_font">Currencies Data</h2>
