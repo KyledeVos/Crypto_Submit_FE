@@ -122,7 +122,7 @@ const HomePage: React.FC = () => {
     <>
       <div className="container-fluid bg-dark">
         <div className="">
-          {summaryData !== undefined && summaryData.length > 0 ?(
+          {summaryData !== undefined && summaryData.length > 0 && (
             <div className="h-25 mh-25">
               <DataDisplayTable
                 tableHeading="Currencies"
@@ -132,8 +132,10 @@ const HomePage: React.FC = () => {
                 clickableRow={true}
               />
             </div>
-          ): 
-          <>
+          )
+          }
+          {summaryData?.length === 0 &&
+                      <>
           <div><h2>No Data</h2></div>
           </>
           }
