@@ -7,12 +7,13 @@ import type {
 import { CustomToastAlert } from "../components/elements/toast_custom";
 import DataDisplayTable from "../components/elements/dataDisplayTable";
 import { useNavigate } from "react-router-dom";
+import {formatSummaryData} from "../utilities/util_data_format"
 
 const HomePage: React.FC = () => {
   // define Data Summary Column Names
   const summaryDataColumns = [
-    "Coin ID",
     "Name",
+    "Coin ID",
     "Symbol",
     "Rank",
     "Is Currently Active",
@@ -36,6 +37,7 @@ const HomePage: React.FC = () => {
     const dataFetch = async () => {
       setLoadingData(true);
       const data: CryptoSummaryModelResponseType = await getHomePageData();
+      const formattedData = formatSummaryData(data.data)
       setLoadingData(false);
       if (
         !data ||
@@ -51,7 +53,7 @@ const HomePage: React.FC = () => {
         );
         setShowToast(true);
       } else {
-        setSummaryData(data.data);
+        setSummaryData(formattedData);
       }
     };
     dataFetch();
@@ -66,7 +68,7 @@ const HomePage: React.FC = () => {
   return (
     <>
       <div className="container-fluid">
-        <div className="h-vh border border-danger">
+        <div className="h-vh">
           {summaryData !== undefined && (
             <div className="h-25 mh-25 border">
               <DataDisplayTable
@@ -85,7 +87,9 @@ const HomePage: React.FC = () => {
                   src="../../public/Logo.svg"
                   className="mh-100 h-100 mt-1"
                 />
+                
               </div>
+              <h3 className="ms-2">Fetching Data</h3>
             </div>
           )}
         </div>

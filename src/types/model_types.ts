@@ -9,7 +9,7 @@ export type CryptoSummaryModelResponseType = {
 export type CryptoSummaryType = {
     currencyName: string;
     currencyID: number;
-    currencySymbol: string;
+    Symbol: string;
     currencyRank: number;
     currencyIsActive: boolean;
 }
@@ -20,4 +20,14 @@ export type CryptoSummaryTableType = {
     symbol: string;
     rank: number;
     is_active: boolean;
+}
+
+export type latestDataType = {
+    currencyName: string,
+    currencySymbol: string,
+    rank: number,
+    currentPrice: string,
+    volume24h: number,
+    marketCap: number,
+    marketCapDominance: number
 }

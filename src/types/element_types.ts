@@ -9,6 +9,6 @@ export type dataDisplayTableType = {
     tableHeading?: string;
     headings: string[];
     data: object[];
-    onRowSelect: (symbol: string) => void
+    onRowSelect?: (symbol: string) => void
     clickableRow?:boolean
 }

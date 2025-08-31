@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import type { dataDisplayTableType } from "../../types/element_types";
-import type { CryptoSummaryTableType } from "../../types/model_types";
+import type { CryptoSummaryType } from "../../types/model_types";
 
 const DataDisplayTable = ({
   tableHeading,
@@ -21,6 +21,8 @@ const DataDisplayTable = ({
       setDataEmpty(true);
     }
   }, []);
+
+  console.log("DATA", data)
 
   return (
     <>
@@ -45,7 +47,7 @@ const DataDisplayTable = ({
               return (
                 <tr role={clickableRow ? "button" : undefined}
                   onClick={() => {
-                    onRowSelect((currentData as CryptoSummaryTableType).symbol);
+                   onRowSelect && onRowSelect((currentData as CryptoSummaryType).Symbol);
                   }}
                 >
                   {Object.values(currentData).map((field) => {
