@@ -32,12 +32,12 @@ const DataDisplayTable = ({
         </div>
       )}
       <table
-        className={`table ${clickableRow ? "table-hover" : ""} bg-dark mt-1`}
+        className={`table table-bordered ${clickableRow ? "table-hover" : ""} bg-dark mt-1`}
       >
         <thead className="table-dark">
           <tr>
             {headings.map((heading) => {
-              return <td>{heading}</td>;
+              return <th>{heading}</th>;
             })}
           </tr>
         </thead>

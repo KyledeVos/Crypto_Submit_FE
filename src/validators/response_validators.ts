@@ -43,3 +43,51 @@ export const latestDataValidateResponse = (data: any):latestDataType | undefined
     // format the data then return
     return formatLatestData(data)
 }
+
+/**
+ * Validate All LatestData recieved from BE
+ * @param data 
+ * @returns all data or undefined if error
+ * @remarks if in developer mode - will show logs
+ */
+export const allLatestDataValidateResponse = (data: any):latestDataType[] | undefined => {
+
+    console.log("validate got", data)
+    if(!data || data == undefined){
+        developerLog("allLatestDataValidateResponse given undefined data")
+        return undefined
+    }else if(!Array.isArray(data)){
+        developerLog("allLatestDataValidateResponse is not an array")
+        return undefined
+    }
+
+    console.log("valiator receved", data)
+
+    // check every field
+    let errors = ""
+    data.forEach((currentItem: any) => {
+        if(currentItem.currency_name === undefined || typeof currentItem.currency_name !== "string" || currentItem.currency_name.trim() === ""){
+            errors += `currency name failed with value as: ${currentItem.currency_name}, `
+        }else if(currentItem.currency_symbol === undefined || typeof currentItem.currency_symbol !== "string" || currentItem.currency_symbol.trim() === ""){
+            errors += `currency symbol failed with value as: ${currentItem.currency_symbol}, `
+        }else if(currentItem.rank === undefined || typeof currentItem.rank !== "number" || Number.isNaN(currentItem.rank) || currentItem.rank < 0){
+            errors += `rank failed with value as: ${currentItem.rank}, `
+        }else if(currentItem.current_price === undefined || typeof currentItem.current_price !== "number" || Number.isNaN(currentItem.current_price) || currentItem.current_price < 0){
+            errors += `current_price failed with value as: ${currentItem.current_price}, `
+        }else if(currentItem.volume_24h === undefined || typeof currentItem.volume_24h !== "number" || Number.isNaN(currentItem.volume_24h) || currentItem.volume_24h < 0){
+            errors += `volume_24h failed with value as: ${currentItem.volume_24h}, `
+        }else if(currentItem.market_cap === undefined || typeof currentItem.market_cap !== "number" || Number.isNaN(currentItem.market_cap) || currentItem.market_cap < 0){
+            errors += `market_cap failed with value as: ${currentItem.market_cap}, `
+        }else if(currentItem.market_cap_dominance === undefined || typeof currentItem.market_cap_dominance !== "number" || Number.isNaN(currentItem.market_cap_dominance) || currentItem.market_cap_dominance < 0){
+            errors += `market_cap_dominance failed with value as: ${currentItem.market_cap_dominance}, `
+        }
+    })
+
+
+    if(errors !== ""){
+        developerLog(`latestDataValidateResponse Validation errors as:  ${errors}`)
+        return undefined
+    }
+
+    return data
+}

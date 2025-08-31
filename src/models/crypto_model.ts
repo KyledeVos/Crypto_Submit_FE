@@ -40,6 +40,43 @@ export const getHomePageData = async (): Promise<any> => {
     }
 }
 
+export const getAllLatestTableData = async() => {
+
+    //set values
+    const route = "/latestDataAll"
+    const method = "GET"
+
+    try {
+
+        const dataResponse = await RequestAxios({ route: route, method: method });
+        console.log("data resp", dataResponse)
+        if (!dataResponse || dataResponse === undefined) {
+            developerLog("latestDataAll request to Axios did not return any data")
+            return { message: "Could not retrieve data", data: undefined }
+        }
+        return { message: "success", data: dataResponse.data }
+    } catch (error) {
+        console.log("in the error")
+        if (error instanceof AxiosError) {
+            console.log("estatus", error.status)
+            if (error.status === 400) {
+                developerLog(`latestDataAll request returned ${error.status}`)
+                return { message: "Data not available at this time. Please try again or contact support", data: undefined }
+            } else if (error.status === 500) {
+                developerLog(`latestDataAll request returned 500`)
+                return { message: "Could not retrieve data at this time", data: undefined }
+            } else {
+                developerLog(`latestDataAll request returned uexpected status code as ${error.status}`)
+                return { message: "Could not retrieve data at this time", data: undefined }
+            }
+        } else {
+            developerLog(`Error occured during axios fetch for latestDataAll as ${error}`)
+            return { message: "Could not retrieve data at this time", data: undefined }
+        }
+    }
+
+}
+
 export const getLatestDataSingle = async (symbol: string) => {
 
     //set values
